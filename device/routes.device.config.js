@@ -12,7 +12,7 @@ import checkingAuthenticate from '../middlewares/checkingAuthenticate.middleware
 
 const router = new Router();
 
-// Получить информацию по устройству по индификатору
+// Получить по устройство по индификатору
 router.get(
     '/', 
     [
@@ -22,6 +22,7 @@ router.get(
     getDeviceDataById
 );
 
+// Получить список всех устройств 
 router.get(
     '/list', 
     [

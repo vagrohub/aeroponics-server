@@ -12,8 +12,6 @@ const getDeviceList = async (req, res) => {
                 model: 'Device'
             }]);
 
-        console.log(de)
-
         return res.send({ device });
     } catch (error) {
         return res.status(503).send({
