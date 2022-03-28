@@ -4,7 +4,7 @@ import execMessageFromError from '../../utils/execMessageFromError.utils.js';
 
 const getUserData = async (req, res) => {
     try {
-        const user = req.user;
+        const user = await req.user;
 
         return res.send({
             user: {

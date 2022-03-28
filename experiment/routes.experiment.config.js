@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import checkingRequestsForFields from '../middlewares/checkingRequestsForFields.middleware.js';
+import checkingAuthenticate from '../middlewares/checkingAuthenticate.middleware.js';
 import {
     getExperimentById,
     createNewExperiment,
     edditTitleExperiment,
     edditDescriptionExperiment,
-    pushMeasurementExperiment
+    pushMeasurementExperiment,
+    getExperimentListByDeviceId
 } from './controllers/experiment.controllers.js';
 
 
@@ -19,6 +21,16 @@ router.get(
         checkingRequestsForFields('query', 'id')
     ],
     getExperimentById
+);
+
+// Получить список экспериментов устройства по индифиатору
+router.get(
+    '/list',
+    [
+        checkingAuthenticate(),
+        checkingRequestsForFields('query', 'name')
+    ],
+    getExperimentListByDeviceId
 );
 
 // Создать новый экспреимент

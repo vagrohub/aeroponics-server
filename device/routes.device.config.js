@@ -12,7 +12,7 @@ import checkingAuthenticate from '../middlewares/checkingAuthenticate.middleware
 
 const router = new Router();
 
-// Получить по устройство по индификатору
+// Получить устройство по индификатору
 router.get(
     '/', 
     [

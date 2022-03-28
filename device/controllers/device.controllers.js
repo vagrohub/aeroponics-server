@@ -6,13 +6,21 @@ import execMessageFromError from '../../utils/execMessageFromError.utils.js';
 
 const getDeviceList = async (req, res) => {
     try {
-        const device = req.user
+        let { deviceList } = await req.user
             .populate([{
                 path: 'deviceList',
                 model: 'Device'
             }]);
 
-        return res.send({ device });
+        deviceList = deviceList.map(device => {
+            return {
+                name: device.name,
+                description: device.description,
+                id: device._id
+            }
+        });
+
+        return res.send({ devices: deviceList });
     } catch (error) {
         return res.status(503).send({
             error: execMessageFromError(error, 'Failed to get device list')

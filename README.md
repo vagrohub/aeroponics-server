@@ -178,7 +178,44 @@ _/device/?id=id_id_id_
 
 ___
 
-#### _/device/new_
+#### GET _/device/list_
+Параметры:
+```json
+{
+    "header": {
+        "Authorization": "Bearer token"
+    },
+    "body": {
+         "devices": [
+        {
+            "name": "testDevice",
+            "description": "description description description",
+            "id": "6241ab50b4ac7cd30f5b7c0e"
+        },
+        {
+            "name": "testDevice2",
+            "description": "description description description",
+            "id": "6241b7a0b4ac7cd30f5b7c22"
+        }
+    ]
+    }
+}
+```
+
+Описание:
+
+Завершить текущий эксперимент и начать новый
+
+Возвращаемое значение:
+```json
+{
+     "status": true
+}
+```
+
+___
+
+#### POST _/device/new_
 Параметры:
 ```json
 {
@@ -231,6 +268,7 @@ ___
 ```
 
 ___
+
 
 #### _/device/description_
 Параметры:
@@ -285,6 +323,29 @@ ___
 
 ### _/user/_
 
+#### GET _/user/
+Параметры:
+```json
+{
+    "header": {
+        "Authorization": "Bearer token"
+    }
+}
+```
+
+Описание:
+
+Получить информацию о зарегистрированном пользователя
+
+Возвращаемое значение:
+```json
+{
+     "status": true
+}
+```
+
+___
+
 #### POST _/user/password_
 Параметры:
 ```json
@@ -331,6 +392,9 @@ ___
 Возвращаемое значение:
 ```json
 {
-     "status": true
+     "user": {
+        "username": "username",
+        "email": "user_mail.@mail.ru"
+    }
 }
 ```

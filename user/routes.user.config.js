@@ -2,7 +2,8 @@ import { Router } from 'express';
 import {
     edditUserPassword,
     edditUsername,
-    getUserData
+    getUserData,
+    getAllUserData
 } from './controllers/user.controllers.js';
 import checkingRequestsForFields from '../middlewares/checkingRequestsForFields.middleware.js';
 import checkingAuthenticate from '../middlewares/checkingAuthenticate.middleware.js';

@@ -5,12 +5,51 @@ import execMessageFromError from '../../utils/execMessageFromError.utils.js';
 const getExperimentById = async (req, res) => {
     try {
         const experiment = await Experiment.findById(req.query.id);
-        
+
         if (!experiment) {
             return experimentWithSpecifiedIdNotExist(req, res);
         }
 
         return res.status(200).send({ experiment });
+    } catch (error) {
+        return res.status(503).send({
+            error: execMessageFromError(error, 'Failed to get experiment')
+        });
+    }
+};
+
+const getExperimentListByDeviceId = async (req, res) => {
+    try {
+        let { deviceList } = await req.user
+            .populate([{
+                path: 'deviceList',
+                model: 'Device'
+            }]);
+
+        let device = deviceList.find(device => device.name === req.query.name);
+        device = await device.populate([
+            {
+                path: 'currentExperiment',
+                model: 'Experiment'
+            },
+            {
+                path: 'cycles',
+                model: 'Experiment'
+            }
+        ]);
+
+        let experiments = [...device.cycles, device.currentExperiment];
+        experiments = experiments.map(experiment => {
+            return {
+                id: experiment._id,
+                title: experiment.title,
+                description: experiment.description,
+                measurements: experiment.measurements,
+                lastUpdate: experiment.lastUpdate
+            }
+        });
+
+        return res.send({ experiments });
     } catch (error) {
         return res.status(503).send({
             error: execMessageFromError(error, 'Failed to get experiment')
@@ -35,7 +74,7 @@ const createNewExperiment = async (req, res) => {
 const edditTitleExperiment = async (req, res) => {
     try {
         const experiment = await Experiment.findById(req.body.id);
-        
+
         if (!experiment) {
             return experimentWithSpecifiedIdNotExist(req, res);
         }
@@ -52,7 +91,7 @@ const edditTitleExperiment = async (req, res) => {
 const edditDescriptionExperiment = async (req, res) => {
     try {
         const experiment = await Experiment.findById(req.body.id);
-        
+
         if (!experiment) {
             return experimentWithSpecifiedIdNotExist(req, res);
         }
@@ -69,7 +108,7 @@ const edditDescriptionExperiment = async (req, res) => {
 const pushMeasurementExperiment = async (req, res) => {
     try {
         const experiment = await Experiment.findById(req.body.id);
-        
+
         if (!experiment) {
             return experimentWithSpecifiedIdNotExist(req, res);
         }
@@ -89,4 +128,5 @@ export {
     edditTitleExperiment,
     edditDescriptionExperiment,
     pushMeasurementExperiment,
+    getExperimentListByDeviceId
 }

@@ -26,7 +26,7 @@ app.use('/user', userRoutes);
 const start = async () => {
     try {
         await mongoose.connect(
-            'mongodb+srv://vlad:tYtiU_poGY22@cluster0.lvcbm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+            'mongodb://127.0.0.1:27017/aeroponics'
         );
         app.listen(
             3000,
