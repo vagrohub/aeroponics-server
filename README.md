@@ -4,7 +4,7 @@
 
 ### _/auth/_
 
-#### _/auth/registration_
+#### POST: _/auth/registration_
 Параметры:
 ```json
 {
@@ -28,7 +28,7 @@
 
 ___
 
-#### _/auth/login_
+#### POST: _/auth/login_
 Параметры:
 ```json
 {
@@ -52,7 +52,7 @@ ___
 
 ### _/experiment/_
 
-#### _/experiment/_
+#### GET: _/experiment/_
 Параметры:
 _/experiment/new?id=string_id_string
 
@@ -68,7 +68,7 @@ _/experiment/new?id=string_id_string
 
 ___
 
-#### _/experiment/new_
+#### POST: _/experiment/new_
 Параметры:
 ```json
 {
@@ -91,7 +91,7 @@ ___
 
 ___
 
-#### _/experiment/measurement_
+#### PATCH: _/experiment/measurement_
 Параметры:
 ```json
 {
@@ -115,7 +115,7 @@ ___
 
 ___
 
-#### _/experiment/title
+#### PATCH: _/experiment/title
 Параметры:
 ```json
 {
@@ -139,7 +139,7 @@ ___
 
 ___
 
-#### _/experiment/description
+#### PATCH: _/experiment/description_
 Параметры:
 ```json
 {
@@ -161,8 +161,33 @@ ___
 }
 ```
 
+___
+
+
+#### GET: _/experiment/list_
+Параметры:
+_/experiment/list?name=deviceName_
+```json
+{
+    "header": {
+        "Authorization": "Bearer token"
+    }
+}
+```
+
+Описание:
+
+Получить эксперимент зарегистрированного устройства по имени
+
+Возвращаемое значение:
+```json
+{
+    "experiment": {}
+}
+```
+
 ### _/device/_
-#### _/device/_
+#### GET: _/device/_
 _/device/?id=id_id_id_
 
 Описание:
@@ -184,9 +209,18 @@ ___
 {
     "header": {
         "Authorization": "Bearer token"
-    },
-    "body": {
-         "devices": [
+    }
+}
+```
+
+Описание:
+
+Получить список устройств зарегистрированного пользователя
+
+Возвращаемое значение:
+```json
+{
+     "devices": [
         {
             "name": "testDevice",
             "description": "description description description",
@@ -198,18 +232,6 @@ ___
             "id": "6241b7a0b4ac7cd30f5b7c22"
         }
     ]
-    }
-}
-```
-
-Описание:
-
-Завершить текущий эксперимент и начать новый
-
-Возвращаемое значение:
-```json
-{
-     "status": true
 }
 ```
 
@@ -243,7 +265,7 @@ ___
 
 ___
 
-#### _/device/experiment_
+#### POST: _/device/experiment_
 Параметры:
 ```json
 {
@@ -251,7 +273,7 @@ ___
         "Authorization": "Bearer token"
     },
     "body": {
-        "id": "string"
+        "id": "string" // индификатор устройства
     }
 }
 ```
@@ -270,7 +292,7 @@ ___
 ___
 
 
-#### _/device/description_
+#### PATCH: _/device/description_
 Параметры:
 ```json
 {
@@ -297,7 +319,7 @@ ___
 
 ___
 
-#### _/device/experiment-push_
+#### POST: _/device/experiment-push_
 Параметры:
 ```json
 {
@@ -354,7 +376,7 @@ ___
         "Authorization": "Bearer token"
     },
     "body": {
-        "password_": "string",
+        "password": "string",
     }
 }
 ```
