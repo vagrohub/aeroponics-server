@@ -54,7 +54,7 @@ ___
 
 #### GET: _/experiment/_
 Параметры:
-_/experiment/new?id=string_id_string
+_/experiment/?id=string_id_string
 
 Описание:
 Получить эксперимент по индификатору
@@ -362,7 +362,8 @@ ___
 Возвращаемое значение:
 ```json
 {
-     "status": true
+     "username": "user"
+     {...}
 }
 ```
 

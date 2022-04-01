@@ -3,6 +3,8 @@ const  checkingRequestsForFields = (field, ...propertys) => (req, res, next) => 
     const missingFields = [];
     const reqField = req[field];
 
+    console.log(req.body)
+
     if (!reqField) {
         return res
             .status(400)

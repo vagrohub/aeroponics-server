@@ -19,6 +19,34 @@ const getUserData = async (req, res) => {
     }
 };
 
+const getFullUserData = async (req, res) => {
+    try {
+        const user = await req.user
+            .populate({
+                path: 'deviceList',
+                model: 'Device',
+                populate: [
+                    {
+                        path: 'currentExperiment',
+                        model: 'Experiment'
+                    },
+                    {
+                        path: 'cycles',
+                        model: 'Experiment'
+                    }
+                ]
+            })
+
+        return res.send({
+            user
+        });
+    } catch (error) {
+        return res.status(503).send({
+            error: execMessageFromError(error, 'Server error')
+        });
+    }
+};
+
 const edditUserPassword = async (req, res) => {
     try {
         const user = req.user;
@@ -52,5 +80,6 @@ const edditUsername = async () => {
 export {
     edditUserPassword,
     edditUsername,
-    getUserData
+    getUserData,
+    getFullUserData
 };

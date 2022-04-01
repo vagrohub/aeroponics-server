@@ -38,18 +38,13 @@ const getExperimentListByDeviceId = async (req, res) => {
             }
         ]);
 
-        let experiments = [...device.cycles, device.currentExperiment];
-        experiments = experiments.map(experiment => {
-            return {
-                id: experiment._id,
-                title: experiment.title,
-                description: experiment.description,
-                measurements: experiment.measurements,
-                lastUpdate: experiment.lastUpdate
-            }
-        });
+        const experimentsInCycle = device.cycles;
+        const currentExperiment = device.currentExperiment;
 
-        return res.send({ experiments });
+        return res.send({
+            experimentsInCycle,
+            currentExperiment
+        });
     } catch (error) {
         return res.status(503).send({
             error: execMessageFromError(error, 'Failed to get experiment')
